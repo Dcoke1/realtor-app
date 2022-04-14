@@ -26,7 +26,7 @@ const Banner = ({
         <br />
         {title2}
       </Text>
-      <Text color="lg" paddingTop="3" paddingBottom="3" color="grey.700">
+      <Text fontSize="lg" paddingTop="3" paddingBottom="3" color="grey.700">
         {desc1}
         <br />
         {desc2}
