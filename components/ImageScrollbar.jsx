@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Image from "next/image";
-import { Box, Icon, Flex } from "@chakra-ui/react";
+import { Box, Icon, Flex, useMediaQuery } from "@chakra-ui/react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
@@ -34,25 +34,37 @@ const RightArrow = () => {
   );
 };
 
-const ImageScrollbar = ({ data }) => (
-  <ScrollMenu
-    LeftArrow={LeftArrow}
-    RightArrow={RightArrow}
-    style={{ overflow: "hidden" }}
-  >
-    {data.map((image) => (
-      <Box key={image.id} width="910px" itemID={image.id} overflow="hidden" p="1">
-        <Image
-          placeholder="blur"
-          blurDataURL={image.url}
-          src={image.url}
-          width="1000px"
-          height="500px"
-          alt="property"
-          sizes="(max-width:500px) 100px, (max-width):1023px 400px, 1000px"
-        />
-      </Box>
-    ))}
-  </ScrollMenu>
-);
+const ImageScrollbar = ({ data }) => {
+  const [mobile] = useMediaQuery('(max-width:450px)');
+
+  useEffect(() => {}, [mobile]);
+
+  return (
+    <ScrollMenu
+      LeftArrow={LeftArrow}
+      RightArrow={RightArrow}
+      style={{ overflow: "hidden" }}
+    >
+      {data.map((image) => (
+        <Box
+          key={image.id}
+          width={mobile ? "380px" : "910px"}
+          itemID={image.id}
+          overflow="hidden"
+          p="1"
+        >
+          <Image
+            placeholder="blur"
+            blurDataURL={image.url}
+            src={image.url}
+            width="1000px"
+            height="500px"
+            alt="property"
+            sizes="(max-width:500px) 100px, (max-width):1023px 400px, 1000px"
+          />
+        </Box>
+      ))}
+    </ScrollMenu>
+  );
+};
 export default ImageScrollbar;
